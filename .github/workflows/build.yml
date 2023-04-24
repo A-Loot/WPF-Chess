@@ -12,13 +12,19 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3.5.2
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.3.1
 
+    - name: Restore NuGet packages
+      run: nuget restore WPF-Chess.sln
+
     - name: Build
-      run: msbuild WPF-Chess.sln /p:Configuration=Release
+      run: msbuild /m /p:Configuration=Release WPF-Chess.sln
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
+      with:
+        name: WPF-Chess
+        path: Chess\bin\Release
