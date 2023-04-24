@@ -1,0 +1,24 @@
+name: MSBuild
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.3.1
+
+    - name: Build
+      run: msbuild WPF-Chess.sln /p:Configuration=Release
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2
