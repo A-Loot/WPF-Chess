@@ -100,5 +100,19 @@
       <Name>ChessLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\WhiteKing.png" />
+    <Resource Include="assets\WhiteQueen.png" />
+    <Resource Include="assets\WhiteRook.png" />
+    <Resource Include="assets\WhiteBishop.png" />
+    <Resource Include="assets\WhiteKnight.png" />
+    <Resource Include="assets\WhitePawn.png" />
+    <Resource Include="assets\BlackKing.png" />
+    <Resource Include="assets\BlackQueen.png" />
+    <Resource Include="assets\BlackRook.png" />
+    <Resource Include="assets\BlackBishop.png" />
+    <Resource Include="assets\BlackKnight.png" />
+    <Resource Include="assets\BlackPawn.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,35 +9,35 @@ namespace ChessLibrary
 	public class Piece
 	{
 		private Type _type;
-		private Row _row;
-		private Column _column;
 		private Color _color;
-		private string _imagePath;
-		public Piece(Type type, Row row, Column column, Color color)
+		private Position _position;
+		public Piece(Type type, Color color, Position position)
 		{
 			_type = type;
-			_row = row;
-			_column = column;
 			_color = color;
+			_position = position;
+		}
 
-			_imagePath = $"{_type}{_color}.png";
+		public void Draw()
+		{
+
 		}
 
 		public Type Type
 		{
 			get { return _type; }
 		}
-		public Row Row
-		{
-			get { return _row; }
-		}
-		public Column Column
-		{
-			get { return _column; }
-		}
 		public Color Color
 		{
 			get { return _color; }
+		}
+		public Position Position
+		{
+			get { return _position; }
+		}
+		public Uri ImagePath
+		{
+			get { return new Uri($"assets\\{_color}{_type}", UriKind.Relative); }
 		}
 	}
 }

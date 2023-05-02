@@ -22,7 +22,7 @@ namespace ChessLibrary
 		Black
 	}
 
-	public enum Row
+	public enum Column
 	{
 		_a,
 		_b,
@@ -34,7 +34,7 @@ namespace ChessLibrary
 		_h
 	}
 
-	public enum Column
+	public enum Row
 	{
 		_1,
 		_2,
@@ -44,5 +44,11 @@ namespace ChessLibrary
 		_6,
 		_7,
 		_8
+	}
+
+	public struct Position
+	{
+		public Column Column;
+		public Row Row;
 	}
 }
