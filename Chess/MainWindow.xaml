@@ -6,7 +6,7 @@
 		xmlns:local="clr-namespace:Chess"
 		mc:Ignorable="d"
 		Title="MainWindow" Height="600" Width="600">
-	<Canvas Name="canvas" Height="512" Width="512">
-
+	<Canvas Name="canvas">
+		<Canvas Name="canvasChessBoard" Height="512" Width="512"/>
 	</Canvas>
 </Window>
