@@ -19,19 +19,25 @@ namespace ChessLibrary
 	{
 		private Type _type;
 		private Color _color;
-		private Position _position;
+		private Point _position;
 
-		public Piece(Type type, Color color, Position position)
+		public Piece(Type type, Color color, Point position)
 		{
 			_type = type;
 			_color = color;
+			if (position == null)
+				throw new ArgumentNullException("position");
+			if (position.X < 0 || position.X > 7)
+				throw new ArgumentException("position.X must be in range 0-7");
+			if (position.Y < 0 || position.Y > 7)
+				throw new ArgumentException("position.Y must be in range 0-7");
 			_position = position;
 		}
 
 		public void Display(Canvas can, int size)
 		{
-			int x = (int)_position.Column * size;
-			int y = (size * 7) - (int)_position.Row * size;
+			int x = (int)_position.X * size;
+			int y = (size * 7) - (int)_position.Y * size;
 			Image img = new Image
 			{
 				Height = size,
@@ -51,7 +57,7 @@ namespace ChessLibrary
 		{
 			get { return _color; }
 		}
-		public Position Position
+		public Point Position
 		{
 			get { return _position; }
 		}

@@ -24,11 +24,11 @@ namespace ChessLibrary
 			_list = new List<Piece>();
 		}
 
-		public Piece GetPiece(Position position)
+		public Piece GetPiece(Point position)
 		{
 			foreach (Piece piece in _list)
 			{
-				if ((piece.Position.Column == position.Column) && (piece.Position.Row == position.Row))
+				if ((piece.Position.X == position.X) && (piece.Position.Y == position.Y))
 				{
 					return piece;
 				}
@@ -41,7 +41,7 @@ namespace ChessLibrary
 			_list.Add(piece);
 		}
 
-		public void Remove(Position position)
+		public void Remove(Point position)
 		{
 			_list.Remove(GetPiece(position));
 		}
