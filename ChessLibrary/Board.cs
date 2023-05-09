@@ -24,6 +24,18 @@ namespace ChessLibrary
 			_list = new List<Piece>();
 		}
 
+		public Piece GetPiece(Position position)
+		{
+			foreach (Piece piece in _list)
+			{
+				if ((piece.Position.Column == position.Column) && (piece.Position.Row == position.Row))
+				{
+					return piece;
+				}
+			}
+			return null;
+		}
+
 		public void Add(Piece piece)
 		{
 			_list.Add(piece);
@@ -31,13 +43,7 @@ namespace ChessLibrary
 
 		public void Remove(Position position)
 		{
-			foreach (Piece piece in _list)
-			{
-				if ((piece.Position.Column == position.Column) && (piece.Position.Row == position.Row))
-				{
-					_list.Remove(piece);
-				}
-			}
+			_list.Remove(GetPiece(position));
 		}
 
 		public void Clear()
@@ -55,12 +61,12 @@ namespace ChessLibrary
 				{
 					Rectangle square = new Rectangle
 					{
-						Width = 64,
-						Height = 64,
+						Width = squareSize,
+						Height = squareSize,
 						Fill = (i + j) % 2 == 0 ? light : dark
 					};
-					Canvas.SetLeft(square, i * 64);
-					Canvas.SetTop(square, j * 64);
+					Canvas.SetLeft(square, i * squareSize);
+					Canvas.SetTop(square, j * squareSize);
 					can.Children.Add(square);
 				}
 			}

@@ -30,7 +30,7 @@ namespace ChessLibrary
 
 		public void Display(Canvas can, int size)
 		{
-			int x = (size * 7) - (int)_position.Column * size;
+			int x = (int)_position.Column * size;
 			int y = (size * 7) - (int)_position.Row * size;
 			Image img = new Image
 			{
