@@ -60,17 +60,17 @@ namespace ChessLibrary
 
 				for (int x = 0; x <= 7; x++)
 				{
-					_list.Add(new Piece(Type.Pawn, color, new Point(x, 1)));
+					_list.Add(new Piece(Type.Pawn, color, new Point(x, 1 + i * 5)));
 				}
 
-				_list.Add(new Piece(Type.Rook, color, new Point(0, 0)));
-				_list.Add(new Piece(Type.Knight, color, new Point(1, 0)));
-				_list.Add(new Piece(Type.Bishop, color, new Point(2, 0)));
-				_list.Add(new Piece(Type.Queen, color, new Point(3, 0)));
-				_list.Add(new Piece(Type.King, color, new Point(4, 0)));
-				_list.Add(new Piece(Type.Bishop, color, new Point(5, 0)));
-				_list.Add(new Piece(Type.Knight, color, new Point(6, 0)));
-				_list.Add(new Piece(Type.Rook, color, new Point(7, 0)));
+				_list.Add(new Piece(Type.Rook, color, new Point(0, i * 7)));
+				_list.Add(new Piece(Type.Knight, color, new Point(1, i * 7)));
+				_list.Add(new Piece(Type.Bishop, color, new Point(2, i * 7)));
+				_list.Add(new Piece(Type.Queen, color, new Point(3, i * 7)));
+				_list.Add(new Piece(Type.King, color, new Point(4, i * 7)));
+				_list.Add(new Piece(Type.Bishop, color, new Point(5, i * 7)));
+				_list.Add(new Piece(Type.Knight, color, new Point(6, i * 7)));
+				_list.Add(new Piece(Type.Rook, color, new Point(7, i * 7)));
 			}
 		}
 
@@ -101,6 +101,12 @@ namespace ChessLibrary
 			}
 		}
 
+		private bool IsValidMove(int x, int y)
+		{
+			bool isValidMove = x >= 0 && x <= 7 && y >= 0 && y <= 7;
+			return isValidMove;
+		}
+
 		private bool IsValidMove(int x, int y, bool pieceAllowed)
 		{
 			bool pieceExists = GetPiece(new Point(x, y)) != null;
@@ -108,6 +114,11 @@ namespace ChessLibrary
 			return isValidMove;
 		}
 
+		// currently ignored moves/events:
+		// - check: if someone gets checked or checkmated, nothing happens
+		// - castling: you cannot castle
+		// - en passant: you cannot capture en passant
+		// - capture: the list that is returned has no indication if a move is a capture or not
 		public List<Point> GetLegalMoves(Point position)
 		{
 			Piece piece = GetPiece(position);
@@ -131,7 +142,7 @@ namespace ChessLibrary
 					p = new Point(posx, posy + 2 * direction);
 					moves.Add(p);
 				}
-				if(IsValidMove(posx + 1, posy + direction, true))
+				if (IsValidMove(posx + 1, posy + direction, true))
 				{
 					p = new Point(posx + 1, posy);
 					moves.Add(p);
@@ -165,7 +176,20 @@ namespace ChessLibrary
 
 			else if (piece.Type == Type.King)
 			{
+				int posx = (int)position.X;
+				int posy = (int)position.Y;
+				int[] deltax = { -1, -1, -1, 0, 0, 1, 1, 1 };
+				int[] deltay = { -1, 0, 1, -1, 1, -1, 0, 1 };
+				Point p;
 
+				for (int i = 0; i <= 7; i++)
+				{
+					if (IsValidMove(posx + deltax[i], posy + deltay[i]))
+					{
+						p = new Point(posx + deltax[i], posy + deltay[i]);
+						moves.Add(p);
+					}
+				}
 			}
 
 			return moves;
