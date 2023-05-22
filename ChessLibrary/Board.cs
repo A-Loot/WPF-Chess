@@ -114,10 +114,11 @@ namespace ChessLibrary
 			return isValidMove;
 		}
 
-		// currently ignored moves/events:
+		// currently ignored moves/events (some of them might be implemented in seperate functions):
 		// - check: if someone gets checked or checkmated, nothing happens
-		// - castling: you cannot castle
-		// - en passant: you cannot capture en passant
+		// - castling: the king cannot castle
+		// - en passant: pawns cannot capture en passant
+		// - promotion: pawns cannot promote to another piece when they reach the end of the board
 		// - capture: the list that is returned has no indication if a move is a capture or not
 		public List<Point> GetLegalMoves(Point position)
 		{
@@ -156,25 +157,95 @@ namespace ChessLibrary
 
 			else if (piece.Type == Type.Knight)
 			{
+				int posx = (int)position.X;
+				int posy = (int)position.Y;
+				int[] deltax = { -2, -2, -1, -1, 1, 1, 2, 2 };
+				int[] deltay = { -1, 1, -2, 2, -2, 2, -1, 1 };
+				Point p;
 
+				for (int i = 0; i <= 7; i++)
+				{
+					if (IsValidMove(posx + deltax[i], posy + deltay[i]))
+					{
+						p = new Point(posx + deltax[i], posy + deltay[i]);
+						moves.Add(p);
+					}
+				}
 			}
 
 			else if (piece.Type == Type.Bishop)
 			{
+				int posx = (int)position.X;
+				int posy = (int)position.Y;
+				int[] deltax = { -1, -1, 1, 1 };
+				int[] deltay = { -1, 1, -1, 1 };
+				Point p;
 
+				for (int i = 0; i < 4; i++)
+				{
+					int newX = posx + deltax[i];
+					int newY = posy + deltay[i];
+
+					while (IsValidMove(newX, newY))
+					{
+						p = new Point(newX, newY);
+						moves.Add(p);
+
+						newX += deltax[i];
+						newY += deltay[i];
+					}
+				}
 			}
 
 			else if (piece.Type == Type.Rook)
 			{
+				int posx = (int)position.X;
+				int posy = (int)position.Y;
+				int[] deltax = { -1, 0, 0, 1 };
+				int[] deltay = { 0, -1, 1, 0 };
+				Point p;
 
+				for (int i = 0; i < 4; i++)
+				{
+					int newX = posx + deltax[i];
+					int newY = posy + deltay[i];
+
+					while (IsValidMove(newX, newY))
+					{
+						p = new Point(newX, newY);
+						moves.Add(p);
+
+						newX += deltax[i];
+						newY += deltay[i];
+					}
+				}
 			}
 
 			else if (piece.Type == Type.Queen)
 			{
+				int posx = (int)position.X;
+				int posy = (int)position.Y;
+				int[] deltax = { -1, -1, -1, 0, 0, 1, 1, 1 };
+				int[] deltay = { -1, 0, 1, -1, 1, -1, 0, 1 };
+				Point p;
 
+				for (int i = 0; i < 8; i++)
+				{
+					int newX = posx + deltax[i];
+					int newY = posy + deltay[i];
+
+					while (IsValidMove(newX, newY))
+					{
+						p = new Point(newX, newY);
+						moves.Add(p);
+
+						newX += deltax[i];
+						newY += deltay[i];
+					}
+				}
 			}
 
-			else if (piece.Type == Type.King)
+            else if (piece.Type == Type.King)
 			{
 				int posx = (int)position.X;
 				int posy = (int)position.Y;
