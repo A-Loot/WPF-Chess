@@ -74,6 +74,125 @@ namespace ChessLibrary
 			}
 		}
 
+		public string Export()
+		{
+			string text = string.Empty;
+			for (int i = 0; i <= 7; i++)
+			{
+				for (int j = 0; j<= 7; j++)
+				{
+					Piece piece = GetPiece(new Point(j, i));
+					if (piece == null)
+					{
+						text += "--";
+						continue;
+					}
+
+					if (piece.Color == Color.White)
+					{
+						text += 'w';
+					}
+					else
+					{
+						text += 'b';
+					}
+
+					if (piece.Type == Type.King)
+					{
+						text += 'k';
+					}
+					else if (piece.Type == Type.Queen)
+					{
+						text += 'q';
+					}
+					else if (piece.Type == Type.Rook)
+					{
+						text += 'r';
+					}
+					else if (piece.Type == Type.Bishop)
+					{
+						text += 'b';
+					}
+					else if (piece.Type == Type.Knight)
+					{
+						text += 'n';
+					}
+					else
+					{
+						text += 'p';
+					}
+				}
+			}
+			return text;
+		}
+
+		public void Import(string text)
+		{
+			_list.Clear();
+			text = text.ToLower();
+			if (text.Length != 128)
+			{
+				throw new Exception("text is not in the required format");
+			}
+
+			for (int i = 0; i < 128; i += 2)
+			{
+				if (text[i] == '-')
+				{
+					continue;
+				}
+
+				Color color;
+				if (text[i] == 'w')
+				{
+					color = Color.White;
+				}
+				else if (text[i] == 'b')
+				{
+					color = Color.Black;
+				}
+				else
+				{
+					throw new Exception("text is not in the required format");
+				}
+
+				Type type;
+				if (text[i + 1] == 'k')
+				{
+					type = Type.King;
+				}
+				else if (text[i + 1] == 'q')
+				{
+					type = Type.Queen;
+				}
+				else if (text[i + 1] == 'r')
+				{
+					type = Type.Rook;
+				}
+				else if (text[i + 1] == 'b')
+				{
+					type = Type.Bishop;
+				}
+				else if (text[i + 1] == 'n')
+				{
+					type = Type.Knight;
+				}
+				else if (text[i + 1] == 'p')
+				{
+					type = Type.Pawn;
+				}
+				else
+				{
+					throw new Exception("text is not in the required format");
+				}
+
+				int y = (i / 2) / 8;
+				int x = (i / 2) - y * 8;
+				Piece piece = new Piece(type, color, new Point(x, y));
+				_list.Add(piece);
+			}
+		}
+
 		public void Display(Canvas can, int squareSize)
 		{
 			can.Children.Clear();

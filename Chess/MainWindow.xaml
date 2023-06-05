@@ -5,8 +5,13 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:Chess"
 		mc:Ignorable="d"
-		Title="MainWindow" Height="600" Width="600">
-	<Canvas Name="canvas">
-		<Canvas Name="canvasChessBoard" Height="512" Width="512"/>
+		Title="Chess" Height="600" Width="600">
+	<Canvas Name="canvas" Background="White">
+		<Menu Width="600" Height="20">
+			<MenuItem Name="MenuItemImport" Header="Import" Click="MenuItemImport_Click"/>
+			<MenuItem Name="MenuItemExport" Header="Export" Click="MenuItemExport_Click"/>
+			<MenuItem Name="MenuItemNewGame" Header="New Game" Click="MenuItemNewGame_Click"/>
+		</Menu>
+		<Canvas Name="canvasChessBoard" Height="512" Width="512" Canvas.Top="20" Background="White"/>
 	</Canvas>
 </Window>
