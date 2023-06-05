@@ -27,7 +27,7 @@ namespace Chess
 		{
 			InitializeComponent();
 			chessBoard.SetDefaultPosition();
-			chessBoard.Display(canvasChessBoard, 64);
+			chessBoard.Display(CanvasChessBoard, 64);
 		}
 
 		private void MenuItemImport_Click(object sender, RoutedEventArgs e)
@@ -47,7 +47,7 @@ namespace Chess
 					MessageBox.Show("The content of the selected file is not in the required format", "Export Game", MessageBoxButton.OK, MessageBoxImage.Warning);
 					return;
 				}
-				chessBoard.Display(canvasChessBoard, 64);
+				chessBoard.Display(CanvasChessBoard, 64);
 			}
 		}
 
@@ -65,7 +65,19 @@ namespace Chess
 
 		private void MenuItemNewGame_Click(object sender, RoutedEventArgs e)
 		{
+			chessBoard.SetDefaultPosition();
+			chessBoard.Display(CanvasChessBoard, 64);
+		}
 
+		private void CanvasChessBoard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			Point p = e.GetPosition(CanvasChessBoard);
+			Point pos = new Point((int)p.X / 64, 7 - (int)p.Y / 64);
+			Piece piece = chessBoard.GetPiece(pos);
+			if (piece != null)
+			{
+
+			}
 		}
 	}
 }
