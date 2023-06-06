@@ -23,6 +23,8 @@ namespace Chess
 	public partial class MainWindow : Window
 	{
 		Board chessBoard = new Board();
+		Piece selectedPiece = null;
+		ChessLibrary.Color currentColor = ChessLibrary.Color.White;
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -71,13 +73,46 @@ namespace Chess
 
 		private void CanvasChessBoard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
+			chessBoard.Display(CanvasChessBoard, 64);
 			Point p = e.GetPosition(CanvasChessBoard);
 			Point pos = new Point((int)p.X / 64, 7 - (int)p.Y / 64);
-			Piece piece = chessBoard.GetPiece(pos);
-			if (piece != null)
+			try
 			{
-
+				List<Point> moves = chessBoard.GetLegalMoves(pos);
+				selectedPiece = chessBoard.GetPiece(pos);
+				if (selectedPiece.Color != currentColor)
+				{
+					return;
+				}
+				foreach (Point move in moves)
+				{
+					Rectangle square = new Rectangle
+					{
+						Width = 64,
+						Height = 64,
+						Fill = (Brush)new BrushConverter().ConvertFrom("#4F00FF00")
+					};
+					square.MouseLeftButtonDown += RectangleHighlighted_MouseLeftButtonDown;
+					Canvas.SetLeft(square, move.X * 64);
+					Canvas.SetTop(square, (7 - move.Y) * 64);
+					CanvasChessBoard.Children.Add(square);
+				}
 			}
+			catch { }
+		}
+
+		private void RectangleHighlighted_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			Point p = e.GetPosition(CanvasChessBoard);
+			Point pos = new Point((int)p.X / 64, 7 - (int)p.Y / 64);
+			if (chessBoard.GetPiece(pos) != null)
+			{
+				chessBoard.Remove(pos);
+			}
+			selectedPiece.Position = pos;
+			selectedPiece = null;
+			chessBoard.Display(CanvasChessBoard, 64);
+			currentColor = currentColor == ChessLibrary.Color.White ? ChessLibrary.Color.Black : ChessLibrary.Color.White;
 		}
 	}
 }

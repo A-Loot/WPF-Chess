@@ -60,6 +60,16 @@ namespace ChessLibrary
 		public Point Position
 		{
 			get { return _position; }
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("position");
+				if (value.X < 0 || value.X > 7)
+					throw new ArgumentException("position.X must be in range 0-7");
+				if (value.Y < 0 || value.Y > 7)
+					throw new ArgumentException("position.Y must be in range 0-7");
+				_position = value;
+			}
 		}
 		public Uri ImagePath
 		{

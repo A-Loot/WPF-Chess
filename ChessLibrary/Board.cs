@@ -233,16 +233,20 @@ namespace ChessLibrary
 			return isValidMove;
 		}
 
-		// currently ignored moves/events (some of them might be implemented in seperate functions):
+		// currently ignored moves/events:
 		// - check: if someone gets checked or checkmated, nothing happens
 		// - castling: the king cannot castle
 		// - en passant: pawns cannot capture en passant
 		// - promotion: pawns cannot promote to another piece when they reach the end of the board
-		// - capture: the list that is returned has no indication if a move is a capture or not
 		public List<Point> GetLegalMoves(Point position)
 		{
 			Piece piece = GetPiece(position);
 			List<Point> moves = new List<Point>();
+
+			if (piece == null)
+			{
+				throw new Exception("There is no Piece at this position");
+			}
 
 			if (piece.Type == Type.Pawn)
 			{
@@ -264,12 +268,12 @@ namespace ChessLibrary
 				}
 				if (IsValidMove(posx + 1, posy + direction, true))
 				{
-					p = new Point(posx + 1, posy);
+					p = new Point(posx + 1, posy + direction);
 					moves.Add(p);
 				}
 				if (IsValidMove(posx - 1, posy + direction, true))
 				{
-					p = new Point(posx - 1, posy);
+					p = new Point(posx - 1, posy + direction);
 					moves.Add(p);
 				}
 			}

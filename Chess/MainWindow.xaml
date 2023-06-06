@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:Chess"
 		mc:Ignorable="d"
-		Title="Chess" MinHeight="600" Height="600" MinWidth="600" Width="600">
+		Title="Chess" Height="600" Width="600" ResizeMode="CanMinimize">
 	<Canvas Name="canvas" Background="White">
 		<Menu Width="600" Height="20">
 			<MenuItem Name="MenuItemImport" Header="Import" Click="MenuItemImport_Click"/>
