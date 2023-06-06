@@ -24,4 +24,6 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: WPF-Chess
-        path: Chess\bin\Release
+        path: |
+          Chess\bin\Release\Chess.exe
+          Chess\bin\Release\ChessLibrary.dll
