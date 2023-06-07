@@ -35,14 +35,14 @@ namespace Chess
 		private void MenuItemImport_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog ofd = new OpenFileDialog();
-			ofd.Filter = "chess save files (*.chessave)|*.chessave|txt files (*.txt)|*.txt|All files (*.*)|*.*";
+			ofd.Filter = "chess save files (*.chesssave)|*.chesssave|txt files (*.txt)|*.txt|All files (*.*)|*.*";
 			bool? result = ofd.ShowDialog();
 			if (result == true)
 			{
 				string content = System.IO.File.ReadAllText(ofd.FileName);
 				try
 				{
-					chessBoard.Import(content);
+					currentColor = chessBoard.Import(content);
 				}
 				catch
 				{
@@ -56,11 +56,11 @@ namespace Chess
 		private void MenuItemExport_Click(object sender, RoutedEventArgs e)
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.Filter = "chess save files (*.chessave)|*.chessave";
+			sfd.Filter = "chess save files (*.chesssave)|*.chesssave|All files (*.*)|*.*";
 			bool? result = sfd.ShowDialog();
 			if (result == true)
 			{
-				string content = chessBoard.Export();
+				string content = chessBoard.Export(currentColor);
 				System.IO.File.WriteAllText(sfd.FileName, content);
 			}
 		}

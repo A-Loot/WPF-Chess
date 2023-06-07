@@ -74,9 +74,18 @@ namespace ChessLibrary
 			}
 		}
 
-		public string Export()
+		public string Export(Color currentColor)
 		{
 			string text = string.Empty;
+			if (currentColor == Color.White)
+			{
+				text += "w;";
+			}
+			else
+			{
+				text += "b;";
+			}
+
 			for (int i = 0; i <= 7; i++)
 			{
 				for (int j = 0; j<= 7; j++)
@@ -126,15 +135,30 @@ namespace ChessLibrary
 			return text;
 		}
 
-		public void Import(string text)
+		public Color Import(string text)
 		{
 			_list.Clear();
 			text = text.ToLower();
-			if (text.Length != 128)
+			Color currentColor;
+			if (text.Length != 130 || text[1] != ';')
 			{
 				throw new Exception("text is not in the required format");
 			}
 
+			if (text[0] == 'w')
+			{
+				currentColor = Color.White;
+			}
+			else if (text[0] == 'b')
+			{
+				currentColor = Color.Black;
+			}
+			else
+			{
+				throw new Exception("text is not in the required format");
+			}
+
+			text = text.Substring(2);
 			for (int i = 0; i < 128; i += 2)
 			{
 				if (text[i] == '-')
@@ -191,6 +215,8 @@ namespace ChessLibrary
 				Piece piece = new Piece(type, color, new Point(x, y));
 				_list.Add(piece);
 			}
+
+			return currentColor;
 		}
 
 		public void Display(Canvas can, int squareSize)
