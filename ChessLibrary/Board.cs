@@ -428,7 +428,7 @@ namespace ChessLibrary
 				}
 			}
 
-            else if (piece.Type == Type.King)
+			else if (piece.Type == Type.King)
 			{
 				int posx = (int)position.X;
 				int posy = (int)position.Y;
