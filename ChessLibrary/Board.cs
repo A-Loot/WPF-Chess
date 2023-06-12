@@ -246,16 +246,30 @@ namespace ChessLibrary
 			}
 		}
 
-		private bool IsValidMove(int x, int y)
+		private bool IsValidMove(int x, int y, Color currentColor)
 		{
-			bool isValidMove = x >= 0 && x <= 7 && y >= 0 && y <= 7;
-			return isValidMove;
+			Piece piece = GetPiece(new Point(x, y));
+			bool pieceExists = piece != null;
+			bool isValidPosition = x >= 0 && x <= 7 && y >= 0 && y <= 7;
+			if (pieceExists)
+			{
+				bool isOppositeColor = piece.Color != currentColor;
+				return isValidPosition && isOppositeColor;
+			}
+			return isValidPosition;
 		}
 
-		private bool IsValidMove(int x, int y, bool pieceAllowed)
+		private bool IsValidMove(int x, int y, bool pieceAllowed, Color currentColor)
 		{
-			bool pieceExists = GetPiece(new Point(x, y)) != null;
-			bool isValidMove = x >= 0 && x <= 7 && y >= 0 && y <= 7 && pieceExists == pieceAllowed;
+			Piece piece = GetPiece(new Point(x, y));
+			bool pieceExists = piece != null;
+			bool isValidPosition = x >= 0 && x <= 7 && y >= 0 && y <= 7;
+			bool isValidMove = isValidPosition && pieceExists == pieceAllowed;
+			if (pieceExists)
+			{
+				bool isOppositeColor = piece.Color != currentColor;
+				return isValidMove && isOppositeColor;
+			}
 			return isValidMove;
 		}
 
@@ -274,30 +288,32 @@ namespace ChessLibrary
 				throw new Exception("There is no Piece at this position");
 			}
 
+			Color col = piece.Color;
+
 			if (piece.Type == Type.Pawn)
 			{
-				int direction = (piece.Color == Color.White) ? 1 : -1;
-				int startingRow = (piece.Color == Color.White) ? 1 : 6;
+				int direction = (col == Color.White) ? 1 : -1;
+				int startingRow = (col == Color.White) ? 1 : 6;
 				int posx = (int)position.X;
 				int posy = (int)position.Y;
 				Point p;
 
-				if (IsValidMove(posx, posy + direction, false))
+				if (IsValidMove(posx, posy + direction, false, col))
 				{
 					p = new Point(posx, posy + direction);
 					moves.Add(p);
 				}
-				if (position.Y == startingRow && IsValidMove(posx, posy + 2 * direction, false))
+				if (position.Y == startingRow && IsValidMove(posx, posy + 2 * direction, false, col))
 				{
 					p = new Point(posx, posy + 2 * direction);
 					moves.Add(p);
 				}
-				if (IsValidMove(posx + 1, posy + direction, true))
+				if (IsValidMove(posx + 1, posy + direction, true, col))
 				{
 					p = new Point(posx + 1, posy + direction);
 					moves.Add(p);
 				}
-				if (IsValidMove(posx - 1, posy + direction, true))
+				if (IsValidMove(posx - 1, posy + direction, true, col))
 				{
 					p = new Point(posx - 1, posy + direction);
 					moves.Add(p);
@@ -314,9 +330,12 @@ namespace ChessLibrary
 
 				for (int i = 0; i <= 7; i++)
 				{
-					if (IsValidMove(posx + deltax[i], posy + deltay[i]))
+					int newX = posx + deltax[i];
+					int newY = posy + deltay[i];
+
+					if (IsValidMove(newX, newY , col))
 					{
-						p = new Point(posx + deltax[i], posy + deltay[i]);
+						p = new Point(newX, newY);
 						moves.Add(p);
 					}
 				}
@@ -335,13 +354,18 @@ namespace ChessLibrary
 					int newX = posx + deltax[i];
 					int newY = posy + deltay[i];
 
-					while (IsValidMove(newX, newY))
+					while (IsValidMove(newX, newY, col))
 					{
 						p = new Point(newX, newY);
 						moves.Add(p);
 
 						newX += deltax[i];
 						newY += deltay[i];
+
+						if (GetPiece(p) != null)
+						{
+							break;
+						}
 					}
 				}
 			}
@@ -359,13 +383,18 @@ namespace ChessLibrary
 					int newX = posx + deltax[i];
 					int newY = posy + deltay[i];
 
-					while (IsValidMove(newX, newY))
+					while (IsValidMove(newX, newY, col))
 					{
 						p = new Point(newX, newY);
 						moves.Add(p);
 
 						newX += deltax[i];
 						newY += deltay[i];
+
+						if (GetPiece(p) != null)
+						{
+							break;
+						}
 					}
 				}
 			}
@@ -383,13 +412,18 @@ namespace ChessLibrary
 					int newX = posx + deltax[i];
 					int newY = posy + deltay[i];
 
-					while (IsValidMove(newX, newY))
+					while (IsValidMove(newX, newY, col))
 					{
 						p = new Point(newX, newY);
 						moves.Add(p);
 
 						newX += deltax[i];
 						newY += deltay[i];
+
+						if (GetPiece(p) != null)
+						{
+							break;
+						}
 					}
 				}
 			}
@@ -404,7 +438,10 @@ namespace ChessLibrary
 
 				for (int i = 0; i <= 7; i++)
 				{
-					if (IsValidMove(posx + deltax[i], posy + deltay[i]))
+					int newX = posx + deltax[i];
+					int newY = posy + deltay[i];
+
+					if (IsValidMove(newX, newY, col))
 					{
 						p = new Point(posx + deltax[i], posy + deltay[i]);
 						moves.Add(p);
