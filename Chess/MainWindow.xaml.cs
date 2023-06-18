@@ -105,9 +105,26 @@ namespace Chess
 		{
 			Point p = e.GetPosition(CanvasChessBoard);
 			Point pos = new Point((int)p.X / 64, 7 - (int)p.Y / 64);
-			if (chessBoard.GetPiece(pos) != null)
+			Piece piece = chessBoard.GetPiece(pos);
+			if (piece != null)
 			{
-				chessBoard.Remove(pos);
+				if (piece.Type == ChessLibrary.Type.King)
+				{
+					MessageBoxResult result = MessageBox.Show($"{currentColor} has won the game!\nDo you want to play again?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+					if (result == MessageBoxResult.Yes)
+					{
+						chessBoard.SetDefaultPosition();
+						chessBoard.Display(CanvasChessBoard, 64);
+					}
+					else
+					{
+						Close();
+					}
+				}
+				else
+				{
+					chessBoard.Remove(pos);
+				}
 			}
 			selectedPiece.Position = pos;
 			selectedPiece = null;

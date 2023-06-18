@@ -137,7 +137,7 @@ namespace ChessLibrary
 
 		public Color Import(string text)
 		{
-			_list.Clear();
+			List<Piece> newList = new List<Piece>();
 			text = text.ToLower();
 			Color currentColor;
 			if (text.Length != 130 || text[1] != ';')
@@ -213,9 +213,11 @@ namespace ChessLibrary
 				int y = (i / 2) / 8;
 				int x = (i / 2) - y * 8;
 				Piece piece = new Piece(type, color, new Point(x, y));
-				_list.Add(piece);
+				newList.Add(piece);
 			}
 
+			_list.Clear();
+			_list = newList;
 			return currentColor;
 		}
 
