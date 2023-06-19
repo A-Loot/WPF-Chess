@@ -41,9 +41,9 @@ namespace ChessLibrary
 			_list.Add(piece);
 		}
 
-		public void Remove(Point position)
+		public void Remove(Piece piece)
 		{
-			_list.Remove(GetPiece(position));
+			_list.Remove(piece);
 		}
 
 		public void Clear()
@@ -304,11 +304,11 @@ namespace ChessLibrary
 				{
 					p = new Point(posx, posy + direction);
 					moves.Add(p);
-				}
-				if (position.Y == startingRow && IsValidMove(posx, posy + 2 * direction, false, col))
-				{
-					p = new Point(posx, posy + 2 * direction);
-					moves.Add(p);
+					if (position.Y == startingRow && IsValidMove(posx, posy + 2 * direction, false, col))
+					{
+						p = new Point(posx, posy + 2 * direction);
+						moves.Add(p);
+					}
 				}
 				if (IsValidMove(posx + 1, posy + direction, true, col))
 				{

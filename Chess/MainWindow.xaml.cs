@@ -67,6 +67,7 @@ namespace Chess
 
 		private void MenuItemNewGame_Click(object sender, RoutedEventArgs e)
 		{
+			currentColor = ChessLibrary.Color.White;
 			chessBoard.SetDefaultPosition();
 			chessBoard.Display(CanvasChessBoard, 64);
 		}
@@ -113,8 +114,10 @@ namespace Chess
 					MessageBoxResult result = MessageBox.Show($"{currentColor} has won the game!\nDo you want to play again?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 					if (result == MessageBoxResult.Yes)
 					{
+						currentColor = ChessLibrary.Color.White;
 						chessBoard.SetDefaultPosition();
 						chessBoard.Display(CanvasChessBoard, 64);
+						return;
 					}
 					else
 					{
@@ -123,7 +126,7 @@ namespace Chess
 				}
 				else
 				{
-					chessBoard.Remove(pos);
+					chessBoard.Remove(piece);
 				}
 			}
 			selectedPiece.Position = pos;
