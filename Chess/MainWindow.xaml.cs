@@ -77,14 +77,14 @@ namespace Chess
 			chessBoard.Display(CanvasChessBoard, 64);
 			Point p = e.GetPosition(CanvasChessBoard);
 			Point pos = new Point((int)p.X / 64, 7 - (int)p.Y / 64);
+			selectedPiece = chessBoard.GetPiece(pos);
+			if (selectedPiece?.Color != currentColor)
+			{
+				return;
+			}
 			try
 			{
-				List<Point> moves = chessBoard.GetLegalMoves(pos);
-				selectedPiece = chessBoard.GetPiece(pos);
-				if (selectedPiece.Color != currentColor)
-				{
-					return;
-				}
+				List<Point> moves = chessBoard.GetLegalMoves(selectedPiece);
 				foreach (Point move in moves)
 				{
 					Rectangle square = new Rectangle
@@ -106,33 +106,28 @@ namespace Chess
 		{
 			Point p = e.GetPosition(CanvasChessBoard);
 			Point pos = new Point((int)p.X / 64, 7 - (int)p.Y / 64);
-			Piece piece = chessBoard.GetPiece(pos);
-			if (piece != null)
-			{
-				if (piece.Type == ChessLibrary.Type.King)
-				{
-					MessageBoxResult result = MessageBox.Show($"{currentColor} has won the game!\nDo you want to play again?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-					if (result == MessageBoxResult.Yes)
-					{
-						currentColor = ChessLibrary.Color.White;
-						chessBoard.SetDefaultPosition();
-						chessBoard.Display(CanvasChessBoard, 64);
-						return;
-					}
-					else
-					{
-						Close();
-					}
-				}
-				else
-				{
-					chessBoard.Remove(piece);
-				}
-			}
+			Piece capturedPiece = chessBoard.GetPiece(pos);
+			bool success = chessBoard.Remove(capturedPiece);
+
 			selectedPiece.Position = pos;
 			selectedPiece = null;
 			chessBoard.Display(CanvasChessBoard, 64);
 			currentColor = currentColor == ChessLibrary.Color.White ? ChessLibrary.Color.Black : ChessLibrary.Color.White;
+
+			if (success && capturedPiece?.Type == ChessLibrary.Type.King)
+			{
+				MessageBoxResult result = MessageBox.Show($"{currentColor} has won the game!\nDo you want to play again?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+				if (result == MessageBoxResult.Yes)
+				{
+					currentColor = ChessLibrary.Color.White;
+					chessBoard.SetDefaultPosition();
+					chessBoard.Display(CanvasChessBoard, 64);
+				}
+				else
+				{
+					Close();
+				}
+			}
 		}
 	}
 }
