@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ChessLibrary
 {
@@ -32,6 +23,17 @@ namespace ChessLibrary
 			if (position.Y < 0 || position.Y > 7)
 				throw new ArgumentException("position.Y must be in range 0-7");
 			_position = position;
+		}
+
+		public void Move (Point newPosition)
+		{
+			if (newPosition == null)
+				throw new ArgumentNullException("newPosition");
+			if (newPosition.X < 0 || newPosition.X > 7)
+				throw new ArgumentException("newPosition.X must be in range 0-7");
+			if (newPosition.Y < 0 || newPosition.Y > 7)
+				throw new ArgumentException("newPosition.Y must be in range 0-7");
+			_position = newPosition;
 		}
 
 		public void Display(Canvas can, int size)
@@ -60,16 +62,6 @@ namespace ChessLibrary
 		public Point Position
 		{
 			get { return _position; }
-			set
-			{
-				if (value == null)
-					throw new ArgumentNullException("position");
-				if (value.X < 0 || value.X > 7)
-					throw new ArgumentException("position.X must be in range 0-7");
-				if (value.Y < 0 || value.Y > 7)
-					throw new ArgumentException("position.Y must be in range 0-7");
-				_position = value;
-			}
 		}
 		public Uri ImagePath
 		{

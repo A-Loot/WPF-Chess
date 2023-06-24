@@ -1,18 +1,10 @@
 ﻿using ChessLibrary;
 using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Chess
@@ -24,6 +16,7 @@ namespace Chess
 	{
 		Board chessBoard = new Board();
 		Piece selectedPiece = null;
+		List<Point> legalMoves;
 		ChessLibrary.Color currentColor = ChessLibrary.Color.White;
 		public MainWindow()
 		{
@@ -84,8 +77,8 @@ namespace Chess
 			}
 			try
 			{
-				List<Point> moves = chessBoard.GetLegalMoves(selectedPiece);
-				foreach (Point move in moves)
+				legalMoves = chessBoard.GetLegalMoves(selectedPiece);
+				foreach (Point move in legalMoves)
 				{
 					Rectangle square = new Rectangle
 					{
@@ -106,10 +99,18 @@ namespace Chess
 		{
 			Point p = e.GetPosition(CanvasChessBoard);
 			Point pos = new Point((int)p.X / 64, 7 - (int)p.Y / 64);
+
+			// the following is needed because click evens still count one pixel to the right of or below the actual element
+			// i don't know why it works that way, but i don't think i'd be able to change it unless i made my own custom rectangle class
+			if (!legalMoves.Contains(pos))
+			{
+				return;
+			}
+
 			Piece capturedPiece = chessBoard.GetPiece(pos);
 			bool success = chessBoard.Remove(capturedPiece);
 
-			selectedPiece.Position = pos;
+			selectedPiece.Move(pos);
 			selectedPiece = null;
 			chessBoard.Display(CanvasChessBoard, 64);
 			currentColor = currentColor == ChessLibrary.Color.White ? ChessLibrary.Color.Black : ChessLibrary.Color.White;

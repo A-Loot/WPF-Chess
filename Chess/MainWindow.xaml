@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Chess"
         mc:Ignorable="d"
         Title="Chess" Height="600" Width="600" ResizeMode="CanMinimize">
-    <Canvas Name="canvas" Background="White">
+    <Canvas>
         <Menu Width="600" Height="20">
             <MenuItem Name="MenuItemImport" Header="Import" Click="MenuItemImport_Click"/>
             <MenuItem Name="MenuItemExport" Header="Export" Click="MenuItemExport_Click"/>
