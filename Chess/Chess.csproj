@@ -9,37 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="assets\BlackBishop.png" />
-    <None Remove="assets\BlackKing.png" />
-    <None Remove="assets\BlackKnight.png" />
-    <None Remove="assets\BlackPawn.png" />
-    <None Remove="assets\BlackQueen.png" />
-    <None Remove="assets\BlackRook.png" />
-    <None Remove="assets\WhiteBishop.png" />
-    <None Remove="assets\WhiteKing.png" />
-    <None Remove="assets\WhiteKnight.png" />
-    <None Remove="assets\WhitePawn.png" />
-    <None Remove="assets\WhiteQueen.png" />
-    <None Remove="assets\WhiteRook.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ChessLibrary\ChessLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="assets\BlackBishop.png" />
-    <Resource Include="assets\BlackKing.png" />
-    <Resource Include="assets\BlackKnight.png" />
-    <Resource Include="assets\BlackPawn.png" />
-    <Resource Include="assets\BlackQueen.png" />
-    <Resource Include="assets\BlackRook.png" />
-    <Resource Include="assets\WhiteBishop.png" />
     <Resource Include="assets\WhiteKing.png" />
-    <Resource Include="assets\WhiteKnight.png" />
-    <Resource Include="assets\WhitePawn.png" />
     <Resource Include="assets\WhiteQueen.png" />
     <Resource Include="assets\WhiteRook.png" />
+    <Resource Include="assets\WhiteBishop.png" />
+    <Resource Include="assets\WhiteKnight.png" />
+    <Resource Include="assets\WhitePawn.png" />
+    <Resource Include="assets\BlackKing.png" />
+    <Resource Include="assets\BlackQueen.png" />
+    <Resource Include="assets\BlackRook.png" />
+    <Resource Include="assets\BlackBishop.png" />
+    <Resource Include="assets\BlackKnight.png" />
+    <Resource Include="assets\BlackPawn.png" />
   </ItemGroup>
 
 </Project>
