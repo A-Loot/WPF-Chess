@@ -1,0 +1,30 @@
+name: .NET Publish
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.1
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3.2.0
+      with:
+        dotnet-version: '7.0.x'
+
+    - name: Publish Chess
+      run: dotnet publish Chess\Chess.csproj -p:PublishProfile=FolderProfile
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3.1.3
+      with:
+        name: WPF-Chess
+        path: Chess\bin\x64\Release\net7.0-windows\publish\win-x64

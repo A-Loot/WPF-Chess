@@ -1,31 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.33530.505
+VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess", "Chess\Chess.csproj", "{39DF3B7D-EEF6-4068-BD8F-131F8AB4F169}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessLibrary", "ChessLibrary\ChessLibrary.csproj", "{47A66665-F108-4B84-8F45-EAB78A814755}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessLibrary", "ChessLibrary\ChessLibrary.csproj", "{0666FDD8-6AE2-4F03-B01A-9530BC174F40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess", "Chess\Chess.csproj", "{4705182A-8488-4F25-96FB-28BC8AF93FEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{39DF3B7D-EEF6-4068-BD8F-131F8AB4F169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39DF3B7D-EEF6-4068-BD8F-131F8AB4F169}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39DF3B7D-EEF6-4068-BD8F-131F8AB4F169}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39DF3B7D-EEF6-4068-BD8F-131F8AB4F169}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0666FDD8-6AE2-4F03-B01A-9530BC174F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0666FDD8-6AE2-4F03-B01A-9530BC174F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0666FDD8-6AE2-4F03-B01A-9530BC174F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0666FDD8-6AE2-4F03-B01A-9530BC174F40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47A66665-F108-4B84-8F45-EAB78A814755}.Debug|x64.ActiveCfg = Debug|x64
+		{47A66665-F108-4B84-8F45-EAB78A814755}.Debug|x64.Build.0 = Debug|x64
+		{47A66665-F108-4B84-8F45-EAB78A814755}.Release|x64.ActiveCfg = Release|x64
+		{47A66665-F108-4B84-8F45-EAB78A814755}.Release|x64.Build.0 = Release|x64
+		{4705182A-8488-4F25-96FB-28BC8AF93FEE}.Debug|x64.ActiveCfg = Debug|x64
+		{4705182A-8488-4F25-96FB-28BC8AF93FEE}.Debug|x64.Build.0 = Debug|x64
+		{4705182A-8488-4F25-96FB-28BC8AF93FEE}.Release|x64.ActiveCfg = Release|x64
+		{4705182A-8488-4F25-96FB-28BC8AF93FEE}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {489FFD1A-F532-4C42-A469-DB05385A97D6}
+		SolutionGuid = {F27F947D-6AB9-4B52-ABE9-18B30CE12C62}
 	EndGlobalSection
 EndGlobal
