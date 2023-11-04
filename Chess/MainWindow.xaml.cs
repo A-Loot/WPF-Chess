@@ -1,5 +1,6 @@
 ﻿using ChessLibrary;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,10 +15,9 @@ namespace Chess
     /// </summary>
     public partial class MainWindow : Window
     {
-        Board chessBoard;
-        Piece? selectedPiece;
-        List<Point>? legalMoves;
-        ChessLibrary.Color currentColor;
+        private Board chessBoard;
+        private Piece? selectedPiece;
+        private ChessLibrary.Color currentColor;
         public MainWindow()
         {
             InitializeComponent();
@@ -83,12 +83,13 @@ namespace Chess
             catch { return; }
 
             if (selectedPiece.Color != currentColor)
+            {
                 return;
+            }
 
             try
             {
-                legalMoves = chessBoard.GetLegalMoves(selectedPiece);
-                foreach (Point move in legalMoves)
+                foreach (Point move in chessBoard.GetLegalMoves(selectedPiece))
                 {
                     Rectangle square = new()
                     {
@@ -108,15 +109,15 @@ namespace Chess
         private void RectangleHighlighted_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(CanvasChessBoard);
-            Point pos = new((int)p.X / 64, 7 - (int)p.Y / 64);
 
             // the following is needed because click evens still count one pixel to the right of or below the actual element
-            // i don't know why it works that way, but i don't think i'd be able to change it unless i made my own custom rectangle class
-            if (legalMoves?.Contains(pos) is false)
+            Rectangle element = sender as Rectangle ?? throw new Exception("something impossible occured");
+            if (Canvas.GetLeft(element) + element.Width == p.X || Canvas.GetTop(element) + element.Height == p.Y)
             {
                 return;
             }
 
+            Point pos = new((int)p.X / 64, 7 - (int)p.Y / 64);
             bool success = false;
             bool isKing = false;
             try

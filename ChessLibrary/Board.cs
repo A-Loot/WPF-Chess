@@ -68,16 +68,12 @@ namespace ChessLibrary
 
         public string Export(Color currentColor)
         {
-            string text = string.Empty;
-            switch (currentColor)
+            string text = currentColor switch
             {
-                case Color.White:
-                    text += "w;";
-                    break;
-                case Color.Black:
-                    text += "b;";
-                    break;
-            }
+                Color.White => "w;",
+                Color.Black => "b;",
+                _ => throw new Exception("something impossible occured")
+            };
 
             for (int i = 0; i <= 7; i++)
             {
@@ -90,42 +86,27 @@ namespace ChessLibrary
                     }
                     catch
                     {
-
                         text += "--";
                         continue;
                     }
 
-                    switch (piece.Color)
+                    text += piece.Color switch
                     {
-                        case Color.White:
-                            text += 'w';
-                            break;
-                        case Color.Black:
-                            text += 'b';
-                            break;
-                    }
+                        Color.White => 'w',
+                        Color.Black => 'b',
+                        _ => throw new Exception("something impossible occured")
+                    };
 
-                    switch (piece.Type)
+                    text += piece.Type switch
                     {
-                        case Type.King:
-                            text += 'k';
-                            break;
-                        case Type.Queen:
-                            text += 'q';
-                            break;
-                        case Type.Rook:
-                            text += 'r';
-                            break;
-                        case Type.Bishop:
-                            text += 'b';
-                            break;
-                        case Type.Knight:
-                            text += 'n';
-                            break;
-                        case Type.Pawn:
-                            text += 'p';
-                            break;
-                    }
+                        Type.King => 'k',
+                        Type.Queen => 'q',
+                        Type.Rook => 'r',
+                        Type.Bishop => 'b',
+                        Type.Knight => 'n',
+                        Type.Pawn => 'p',
+                        _ => throw new Exception("something impossible occured")
+                    };
                 }
             }
             return text;
@@ -135,72 +116,46 @@ namespace ChessLibrary
         {
             List<Piece> newList = new();
             text = text.ToLower();
-            Color currentColor;
             if (text.Length != 130)
             {
                 throw new Exception("text is not in the required format");
             }
 
-            switch (Convert.ToString(text[0]) + Convert.ToString(text[1]))
+            Color currentColor = (text[0..2]) switch
             {
-                case "w;":
-                    currentColor = Color.White;
-                    break;
-                case "b;":
-                    currentColor = Color.Black;
-                    break;
-                default:
-                    throw new Exception("text is not in the required format");
-            }
+                "w;" => Color.White,
+                "b;" => Color.Black,
+                _ => throw new Exception("text is not in the required format"),
+            };
 
             text = text[2..];
             for (int i = 0; i < 128; i += 2)
             {
-                if (text[i] == '-')
+                if (text[i..(i + 2)] == "--")
                 {
                     continue;
                 }
 
-                Color color;
-                switch (text[i])
+                Color color = text[i] switch
                 {
-                    case 'w':
-                        color = Color.White;
-                        break;
-                    case 'b':
-                        color = Color.Black;
-                        break;
-                    default:
-                        throw new Exception("text is not in the required format");
-                }
+                    'w' => Color.White,
+                    'b' => Color.Black,
+                    _ => throw new Exception("text is not in the required format"),
+                };
 
-                Type type;
-                switch (text[i + 1])
+                Type type = text[i + 1] switch
                 {
-                    case 'k':
-                        type = Type.King;
-                        break;
-                    case 'q':
-                        type = Type.Queen;
-                        break;
-                    case 'r':
-                        type = Type.Rook;
-                        break;
-                    case 'b':
-                        type = Type.Bishop;
-                        break;
-                    case 'n':
-                        type = Type.Knight;
-                        break;
-                    case 'p':
-                        type = Type.Pawn;
-                        break;
-                    default:
-                        throw new Exception("text is not in the required format");
-                }
+                    'k' => Type.King,
+                    'q' => Type.Queen,
+                    'r' => Type.Rook,
+                    'b' => Type.Bishop,
+                    'n' => Type.Knight,
+                    'p' => Type.Pawn,
+                    _ => throw new Exception("text is not in the required format"),
+                };
 
                 int y = (i / 2) / 8;
-                int x = (i / 2) - y * 8;
+                int x = (i / 2) - (y * 8);
                 Piece piece = new(type, color, new Point(x, y));
                 newList.Add(piece);
             }

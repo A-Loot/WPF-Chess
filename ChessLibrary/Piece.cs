@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -17,18 +16,30 @@ namespace ChessLibrary
             _type = type;
             _color = color;
             if (position.X < 0 || position.X > 7)
+            {
                 throw new ArgumentException("position.X must be in range 0-7");
-            if (position.Y < 0 || position.Y > 7)
+            }
+
+            if (position.Y < 0 || position.X > 7)
+            {
                 throw new ArgumentException("position.Y must be in range 0-7");
+            }
+
             _position = position;
         }
 
         public void Move(Point newPosition)
         {
             if (newPosition.X < 0 || newPosition.X > 7)
+            {
                 throw new ArgumentException("newPosition.X must be in range 0-7");
+            }
+
             if (newPosition.Y < 0 || newPosition.Y > 7)
+            {
                 throw new ArgumentException("newPosition.Y must be in range 0-7");
+            }
+
             _position = newPosition;
         }
 
