@@ -137,6 +137,7 @@ namespace Chess
                     currentColor = ChessLibrary.Color.White;
                     chessBoard.SetDefaultPosition();
                     chessBoard.Display(CanvasChessBoard, 64);
+                    return;
                 }
                 else
                 {
