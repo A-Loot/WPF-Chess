@@ -1,4 +1,4 @@
-﻿namespace ChessLibrary
+namespace ChessLibrary
 {
     public enum Type
     {

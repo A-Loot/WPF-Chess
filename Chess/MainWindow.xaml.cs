@@ -1,4 +1,4 @@
-﻿using ChessLibrary;
+using ChessLibrary;
 using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
