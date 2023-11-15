@@ -1,4 +1,4 @@
-# WPF-Chess
+﻿# WPF-Chess
 
 ## Images
 - [White King](https://commons.wikimedia.org/wiki/File:Chess_klt45.svg)

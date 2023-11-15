@@ -1,7 +1,5 @@
 ﻿using ChessLibrary;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
