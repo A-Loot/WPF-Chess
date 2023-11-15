@@ -11,7 +11,7 @@ namespace ChessLibrary
 
         public Board()
         {
-            _list = new List<Piece>();
+            _list = [];
         }
 
         public Piece GetPiece(Point position)
@@ -50,17 +50,17 @@ namespace ChessLibrary
 
                 for (int x = 0; x <= 7; x++)
                 {
-                    _list.Add(new Piece(Type.Pawn, color, new Point(x, 1 + i * 5)));
+                    _list.Add(new(Type.Pawn, color, new Point(x, 1 + i * 5)));
                 }
 
-                _list.Add(new Piece(Type.Rook, color, new Point(0, i * 7)));
-                _list.Add(new Piece(Type.Knight, color, new Point(1, i * 7)));
-                _list.Add(new Piece(Type.Bishop, color, new Point(2, i * 7)));
-                _list.Add(new Piece(Type.Queen, color, new Point(3, i * 7)));
-                _list.Add(new Piece(Type.King, color, new Point(4, i * 7)));
-                _list.Add(new Piece(Type.Bishop, color, new Point(5, i * 7)));
-                _list.Add(new Piece(Type.Knight, color, new Point(6, i * 7)));
-                _list.Add(new Piece(Type.Rook, color, new Point(7, i * 7)));
+                _list.Add(new(Type.Rook, color, new Point(0, i * 7)));
+                _list.Add(new(Type.Knight, color, new Point(1, i * 7)));
+                _list.Add(new(Type.Bishop, color, new Point(2, i * 7)));
+                _list.Add(new(Type.Queen, color, new Point(3, i * 7)));
+                _list.Add(new(Type.King, color, new Point(4, i * 7)));
+                _list.Add(new(Type.Bishop, color, new Point(5, i * 7)));
+                _list.Add(new(Type.Knight, color, new Point(6, i * 7)));
+                _list.Add(new(Type.Rook, color, new Point(7, i * 7)));
             }
         }
 
@@ -112,14 +112,14 @@ namespace ChessLibrary
 
         public Color Import(string text)
         {
-            List<Piece> newList = new();
+            List<Piece> newList = [];
             text = text.ToLower();
             if (text.Length != 130)
             {
                 throw new Exception("text is not in the required format");
             }
 
-            Color currentColor = (text[0..2]) switch
+            Color currentColor = text[0..2] switch
             {
                 "w;" => Color.White,
                 "b;" => Color.Black,
@@ -233,7 +233,7 @@ namespace ChessLibrary
                 throw new Exception("There is no Piece at this position");
             }
 
-            List<Point> moves = new();
+            List<Point> moves = [];
             int posX = (int)piece.Position.X;
             int posY = (int)piece.Position.Y;
             Color col = piece.Color;

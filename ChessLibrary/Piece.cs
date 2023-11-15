@@ -14,31 +14,19 @@ namespace ChessLibrary
         {
             _type = type;
             _color = color;
-            if (position.X < 0 || position.X > 7)
-            {
+            if (position.X is < 0 or > 7)
                 throw new ArgumentException("position.X must be in range 0-7");
-            }
-
-            if (position.Y < 0 || position.X > 7)
-            {
+            if (position.Y is < 0 or > 7)
                 throw new ArgumentException("position.Y must be in range 0-7");
-            }
-
             _position = position;
         }
 
         public void Move(Point newPosition)
         {
-            if (newPosition.X < 0 || newPosition.X > 7)
-            {
+            if (newPosition.X is < 0 or > 7)
                 throw new ArgumentException("newPosition.X must be in range 0-7");
-            }
-
-            if (newPosition.Y < 0 || newPosition.Y > 7)
-            {
+            if (newPosition.Y is < 0 or > 7)
                 throw new ArgumentException("newPosition.Y must be in range 0-7");
-            }
-
             _position = newPosition;
         }
 
@@ -57,21 +45,9 @@ namespace ChessLibrary
             can.Children.Add(img);
         }
 
-        public Type Type
-        {
-            get { return _type; }
-        }
-        public Color Color
-        {
-            get { return _color; }
-        }
-        public Point Position
-        {
-            get { return _position; }
-        }
-        public Uri ImagePath
-        {
-            get { return new Uri($"assets\\{_color}{_type}.png", UriKind.Relative); }
-        }
+        public Type Type => _type;
+        public Color Color => _color;
+        public Point Position => _position;
+        public Uri ImagePath => new($"assets\\{_color}{_type}.png", UriKind.Relative);
     }
 }
